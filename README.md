@@ -71,8 +71,8 @@ Cronograma de Desenvolvimento: Detalhamento da distribuição de tarefas da equi
 Collection do Postman/Insomnia: Arquivo .json contendo todas as requisições (POST e GET paginados) já configuradas para validação do funcionamento da persistência.
 
 👥 Equipe de Desenvolvimento
-Maicon Douglas da Silva Timoteo - RM: [Seu RM]
+Maicon Douglas da Silva Timoteo - RM: RM: 561279
 
-[Nome do Integrante 2] - RM: [RM]
+Henrique Sinkevicius Maran - RM: 562977
 
-[Nome do Integrante 3] - RM: [RM]
+Evellyn Ferreira - RM: [RM]

@@ -1,0 +1,152 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: My first collection
+meta:
+  id: wrk_23782a98a8ea41f6874a9fc9a7e10415
+  created: 1779287833185
+  modified: 1779287833185
+  description: ""
+collection:
+  - url: http://localhost:8080/api/v1/usuarios
+    name: Criar Usuário
+    meta:
+      id: req_16cb150972704c1ca520861ddaff2a4b
+      created: 1779287833191
+      modified: 1779288319201
+      isPrivate: false
+      description: ""
+      sortKey: -1779287833191
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "nome": "Marina Costa",
+          "email": "marina.costa@email.com",
+          "senha": "senha_segura_456",
+          "perfil": "TUTOR"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/v1/tutores
+    name: Criar Tutor
+    meta:
+      id: req_efcfeaeb97f0464aba165aef1bf812e8
+      created: 1779287905880
+      modified: 1779288331201
+      isPrivate: false
+      description: ""
+      sortKey: -1779287905880
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "idUsuario": 3,
+          "nome": "Marina Costa",
+          "cpf": "444.555.666-77",
+          "telefone": "11977776666",
+          "endereco": "Rua das Flores, 42 - Campinas, SP",
+          "dataNascimento": "1995-03-10"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/v1/pets
+    name: Criar Pet
+    meta:
+      id: req_9073f5de58e044eebe1f58d86d2f1fef
+      created: 1779287944472
+      modified: 1779288340575
+      isPrivate: false
+      description: ""
+      sortKey: -1779287944472
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "idTutor": 2,
+          "nome": "Luna",
+          "especie": "Cachorro",
+          "raca": "Pug",
+          "sexo": "Fêmea",
+          "dataNascimento": "2021-08-22",
+          "pesoKg": 8.20
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/v1/pets
+    name: Listar Pets
+    meta:
+      id: req_a07d1e1485b74a6b92120179abf8a194
+      created: 1779288013341
+      modified: 1779288272999
+      isPrivate: false
+      description: ""
+      sortKey: -1779288013341
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_1bcb25233f333593eec0ad200b4dff0f00017c45
+    created: 1779287833187
+    modified: 1779287833187
+environments:
+  name: Base Environment
+  meta:
+    id: env_1bcb25233f333593eec0ad200b4dff0f00017c45
+    created: 1779287833186
+    modified: 1779287833186
+    isPrivate: false
