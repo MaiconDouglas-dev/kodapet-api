@@ -36,33 +36,27 @@ A API foi desenvolvida visando o mais alto nível de maturidade RESTful, cumprin
 
 A aplicação utiliza **Spring Profiles**. O perfil `dev` está ativo por padrão, configurado para utilizar o banco **H2 em memória**. O banco e as tabelas são criados automaticamente a cada execução, facilitando a correção e os testes da banca examinadora.
 
-**1. Clone o repositório e acesse a pasta:**
-```bash
-git clone [https://github.com/SeuUsuario/clyvo-api.git](https://github.com/SeuUsuario/clyvo-api.git)
-cd clyvo-api
+## ✅ Roteiro de Validação (Passo a Passo)
 
-2. Suba a aplicação via Gradle Wrapper:
+> Você pode executar este roteiro manualmente pelo Swagger ou importar a collection do Insomnia em: `documentos/Insomnia_2026-05-20.yaml`.
 
-No Windows: gradlew bootRun
+1. **Criar Usuário** (POST `/api/v1/usuarios`)
+2. **Criar Tutor vinculado ao Usuário** (POST `/api/v1/tutores`) informando `idUsuario`
+3. **Criar Pet vinculado ao Tutor** (POST `/api/v1/pets`) informando `idTutor`
+4. **Listar Pets com paginação e ordenação** (GET `/api/v1/pets?page=0&size=10&sort=nome,asc`)
+5. **Buscar por parâmetro (filtro por nome)** (GET `/api/v1/pets?nome=Luna&page=0&size=10&sort=nome,asc`)
 
-No Mac/Linux: ./gradlew bootRun
-
-3. Acesse a Documentação Interativa (Swagger):
-
-URL: http://localhost:8080/swagger-ui.html
-
-Por aqui é possível testar todas as rotas (POST, GET, DELETE).
-
-4. Acesse o Console do Banco de Dados (H2):
-
-URL: http://localhost:8080/h2-console
-
-JDBC URL: jdbc:h2:mem:clyvodb
-
-User: sa (Senha em branco).
+### URLs úteis
+- Swagger UI: `http://localhost:8080/swagger-ui.html`
+- H2 Console: `http://localhost:8080/h2-console` (JDBC: `jdbc:h2:mem:clyvodb`, user `sa`, sem senha)
 
 🗂️ Artefatos da Sprint (Pasta /documentos)
 Para validação estrutural e evidência de testes, verifique a pasta documentos na raiz deste repositório. Ela contém:
+
+- **MER (Modelo Entidade-Relacionamento):** `documentos/MER.jpeg`
+- **DER (Diagrama Entidade-Relacionamento / constraints e chaves):** `documentos/DER.jpeg`
+
+> **Como validar:** abra as imagens acima e confira as cardinalidades (1:N / N:1), chaves estrangeiras e constraints (ex.: unicidade de e-mail/CPF, obrigatoriedades) batendo com as entidades JPA do projeto.
 
 DER & Diagrama de Classes UML: Evidenciando as cardinalidades e restrições.
 
@@ -75,4 +69,4 @@ Maicon Douglas da Silva Timoteo - RM: RM: 561279
 
 Henrique Sinkevicius Maran - RM: 562977
 
-Evellyn Ferreira - RM: [RM]
+Evellyn Ferreira - RM: 562744

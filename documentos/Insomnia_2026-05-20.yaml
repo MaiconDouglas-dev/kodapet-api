@@ -1,6 +1,6 @@
 type: collection.insomnia.rest/5.0
 schema_version: "5.1"
-name: My first collection
+name: Clyvo API - Sprint 1
 meta:
   id: wrk_23782a98a8ea41f6874a9fc9a7e10415
   created: 1779287833185
