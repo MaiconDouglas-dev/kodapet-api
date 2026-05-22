@@ -68,8 +68,8 @@ gradlew bootRun
 ---
 
 ## 🔗 URLs úteis
-- **Swagger UI:** `http://localhost:8080/swagger-ui.html`
-- **H2 Console:** `http://localhost:8080/h2-console`
+- **Swagger UI:** `http://localhost:8081/swagger-ui.html`
+- **H2 Console:** `http://localhost:8081/h2-console`
     - JDBC: `jdbc:h2:mem:clyvodb`
     - User: `sa`
     - Senha: *(vazia)*
