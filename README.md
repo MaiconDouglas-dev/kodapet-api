@@ -67,6 +67,88 @@ gradlew bootRun
 
 ---
 
+## 🧪 Teste rápido (copy/paste) — cURL
+> Base URL (dev): `http://localhost:8081`
+
+### 1) Criar Usuário (deve retornar **201**)
+```bash
+curl -i -X POST http://localhost:8081/api/v1/usuarios \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nome": "Usuario Teste",
+    "email": "usuario.teste@clyvo.com",
+    "senha": "12345678",
+    "perfil": "ADMIN"
+  }'
+```
+
+### 2) Listar Usuários (paginação + ordenação)
+```bash
+curl -i "http://localhost:8081/api/v1/usuarios?page=0&size=10&sort=nome,asc"
+```
+
+> Pegue o `id` retornado na listagem acima e use como `idUsuario` no próximo passo.
+
+### 3) Criar Tutor (deve retornar **201**)
+```bash
+curl -i -X POST http://localhost:8081/api/v1/tutores \
+  -H "Content-Type: application/json" \
+  -d '{
+    "idUsuario": 1,
+    "nome": "Tutor Teste",
+    "cpf": "123.456.789-00",
+    "telefone": "11999999999",
+    "endereco": "Rua A, 123",
+    "dataNascimento": "1990-01-01"
+  }'
+```
+
+### 4) Listar Tutores (busca por parâmetro + paginação)
+```bash
+curl -i "http://localhost:8081/api/v1/tutores?nome=Tutor&page=0&size=10&sort=nome,asc"
+```
+
+> Pegue o `id` do tutor retornado na listagem acima e use como `idTutor` no próximo passo.
+
+### 5) Criar Pet (deve retornar **201**)
+```bash
+curl -i -X POST http://localhost:8081/api/v1/pets \
+  -H "Content-Type: application/json" \
+  -d '{
+    "idTutor": 1,
+    "nome": "Rex",
+    "especie": "Cachorro",
+    "raca": "Vira-lata",
+    "sexo": "M",
+    "dataNascimento": "2020-01-01",
+    "pesoKg": 12.5
+  }'
+```
+
+### 6) Listar Pets (paginação + ordenação)
+```bash
+curl -i "http://localhost:8081/api/v1/pets?page=0&size=10&sort=nome,asc"
+```
+
+---
+
+## ✅ Provas de validação / regras de negócio (retornos esperados)
+
+### Regra: senha deve ter **mínimo 8 caracteres** (deve retornar **400** ou **422**)
+```bash
+curl -i -X POST http://localhost:8081/api/v1/usuarios \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nome": "Usuario Invalido",
+    "email": "invalido@clyvo.com",
+    "senha": "1234567",
+    "perfil": "ADMIN"
+  }'
+```
+
+### Regra: tutor não pode ter CPF duplicado (deve retornar **422** ou **409**)
+> Execute o POST de Tutor duas vezes com o mesmo CPF.
+
 ## 🔗 URLs úteis
 - **Swagger UI:** `http://localhost:8081/swagger-ui.html`
 - **H2 Console:** `http://localhost:8081/h2-console`
