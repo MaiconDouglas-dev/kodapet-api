@@ -7,7 +7,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.Instant;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestControllerAdvice
@@ -33,5 +35,15 @@ public class GlobalExceptionHandler {
         // Retorna um Erro 409 (Conflict) com uma mensagem limpa
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body("Erro de conflito: Os dados enviados (como E-mail ou CPF) já estão cadastrados no sistema.");
+    }
+
+    @ExceptionHandler(BusinessRuleException.class)
+    public ResponseEntity<Object> handleBusinessRule(BusinessRuleException ex) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", Instant.now().toString());
+        body.put("status", 422);
+        body.put("error", "Unprocessable Entity");
+        body.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(body);
     }
 }

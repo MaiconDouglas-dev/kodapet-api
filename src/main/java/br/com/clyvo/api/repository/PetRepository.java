@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
     Page<Pet> findByNomeContainingIgnoreCase(String nome, Pageable pageable);
+
+    long countByTutorId(Long tutorId);
 }

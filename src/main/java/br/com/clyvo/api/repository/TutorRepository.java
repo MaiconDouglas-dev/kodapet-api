@@ -9,4 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TutorRepository extends JpaRepository<Tutor, Long> {
     Page<Tutor> findByNomeContainingIgnoreCase(String nome, Pageable pageable);
+
+    boolean existsByCpf(String cpf);
+
+    boolean existsByUsuarioId(Long usuarioId);
 }

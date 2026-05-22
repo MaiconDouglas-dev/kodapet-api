@@ -4,6 +4,7 @@ import br.com.clyvo.api.domain.Tutor;
 import br.com.clyvo.api.domain.Usuario;
 import br.com.clyvo.api.dto.request.TutorRequest;
 import br.com.clyvo.api.dto.response.TutorResponse;
+import br.com.clyvo.api.exception.BusinessRuleException;
 import br.com.clyvo.api.exception.ResourceNotFoundException;
 import br.com.clyvo.api.repository.TutorRepository;
 import br.com.clyvo.api.repository.UsuarioRepository;
@@ -28,7 +29,16 @@ public class TutorService {
     @Transactional
     @CacheEvict(value = "tutores", allEntries = true)
     public TutorResponse criar(TutorRequest request) {
-        Usuario usuario = usuarioRepository.findById(request.idUsuario()).orElseThrow(() -> new ResourceNotFoundException("Usuário vinculado não encontrado."));
+        Usuario usuario = usuarioRepository.findById(request.idUsuario())
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário vinculado não encontrado."));
+
+        if (tutorRepository.existsByCpf(request.cpf())) {
+            throw new BusinessRuleException("Já existe um tutor cadastrado com este CPF.");
+        }
+        
+        if (tutorRepository.existsByUsuarioId(usuario.getId())) {
+            throw new BusinessRuleException("Este usuário já está vinculado a um tutor.");
+        }
 
         Tutor tutor = new Tutor();
         tutor.setUsuario(usuario);

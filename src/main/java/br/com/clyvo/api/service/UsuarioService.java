@@ -3,6 +3,7 @@ package br.com.clyvo.api.service;
 import br.com.clyvo.api.domain.Usuario;
 import br.com.clyvo.api.dto.request.UsuarioRequest;
 import br.com.clyvo.api.dto.response.UsuarioResponse;
+import br.com.clyvo.api.exception.BusinessRuleException;
 import br.com.clyvo.api.exception.ResourceNotFoundException;
 import br.com.clyvo.api.repository.UsuarioRepository;
 import org.springframework.cache.annotation.CacheEvict;
@@ -24,10 +25,18 @@ public class UsuarioService {
     @Transactional
     @CacheEvict(value = "usuarios", allEntries = true)
     public UsuarioResponse criar(UsuarioRequest request) {
+        if (repository.existsByEmailIgnoreCase(request.email())) {
+            throw new BusinessRuleException("Já existe um usuário cadastrado com este e-mail.");
+        }
+
+        if (request.senha() == null || request.senha().trim().length() < 8) {
+            throw new BusinessRuleException("A senha deve possuir no mínimo 8 caracteres.");
+        }
+
         Usuario usuario = new Usuario();
         usuario.setNome(request.nome());
         usuario.setEmail(request.email());
-        usuario.setSenhaHash(request.senha()); // Em produção real, usar BCryptPasswordEncoder aqui
+        usuario.setSenhaHash(request.senha());
         usuario.setPerfil(request.perfil());
 
         return new UsuarioResponse(repository.save(usuario));
@@ -42,7 +51,8 @@ public class UsuarioService {
     }
 
     public UsuarioResponse buscarPorId(Long id) {
-        Usuario usuario = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado."));
+        Usuario usuario = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado."));
         return new UsuarioResponse(usuario);
     }
 }
